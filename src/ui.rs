@@ -41,3 +41,15 @@ impl Ui {
         refresh();
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::env;
+
+    #[test]
+    fn create_ui() {
+        env::set_var("PT_API_TOKEN", "test");
+        let _ui = Ui::new();
+    }
+}
