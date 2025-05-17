@@ -34,3 +34,30 @@ impl Api {
         Ok(())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::env;
+
+    #[test]
+    fn new_reads_token_from_env() {
+        env::set_var("PT_API_TOKEN", "token123");
+        let api = Api::new();
+        assert_eq!(api.token, "token123");
+    }
+
+    #[test]
+    fn get_projects_returns_ok() {
+        let api = Api::new();
+        let result = api.get_projects();
+        assert!(result.is_ok());
+    }
+
+    #[test]
+    fn update_story_state_returns_ok() {
+        let api = Api::new();
+        let result = api.update_story_state(1, "started");
+        assert!(result.is_ok());
+    }
+}
